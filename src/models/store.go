@@ -4,16 +4,6 @@ import (
 	gormjsonb "github.com/dariubs/gorm-jsonb"
 )
 
-type Point struct {
-	Type  string    `json:"type"`
-	Coord []float64 `json:"coordinates"`
-}
-
-type MultiPolygon struct {
-	Type   string           `json:"type"`
-	Coords [][][][2]float64 `json:"coordinates"`
-}
-
 type Store struct {
 	Id           int             `json:"id"`
 	Tradingname  string          `json:"tradingname"`
