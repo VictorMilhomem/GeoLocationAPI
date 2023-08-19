@@ -22,6 +22,19 @@ func ConvertJSONBToRawMessage(jsonb gormjsonb.JSONB) (json.RawMessage, error) {
 	return json.RawMessage(mjson), err
 }
 
+func ConvertPointtoJSONB(point Point) (gormjsonb.JSONB, error) {
+	jsonData, err := json.Marshal(point)
+	if err != nil {
+		return nil, err
+	}
+
+	var jsonbData gormjsonb.JSONB
+	if err := json.Unmarshal(jsonData, &jsonbData); err != nil {
+		return nil, err
+	}
+	return jsonbData, nil
+}
+
 func ConvertJSONToPoints(jsonData gormjsonb.JSONB) (*Point, error) {
 	var points *Point
 	raw, err := ConvertJSONBToRawMessage(jsonData)

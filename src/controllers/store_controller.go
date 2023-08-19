@@ -52,7 +52,7 @@ func GetUserClosestStore(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-type", "application/json")
 
 	var user models.Point
-	// var store models.Store
+	var store models.Store
 
 	json.NewDecoder(r.Body).Decode(&user)
 	// calculate the closest store
@@ -63,7 +63,13 @@ func GetUserClosestStore(w http.ResponseWriter, r *http.Request) {
 
 	closestpoint := models.FindClosestPoint(user, store_locations)
 	// find the store with the point
-	json.NewEncoder(w).Encode(closestpoint)
+	addrs_json, err := models.ConvertPointtoJSONB(closestpoint)
+	if err != nil {
+		log.Println(err)
+	}
+
+	database.DB.Where("addrs = ?", addrs_json).Find(&store)
+	json.NewEncoder(w).Encode(store)
 }
 
 func CreateStore(w http.ResponseWriter, r *http.Request) {
