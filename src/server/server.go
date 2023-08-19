@@ -2,8 +2,8 @@ package server
 
 import (
 	"log"
-	"net/http"
 
+	"github.com/VictorMilhomem/GeoLocationApi/src/database"
 	"github.com/VictorMilhomem/GeoLocationApi/src/routes"
 )
 
@@ -18,7 +18,9 @@ func NewAPIServer(listenAddr string) *APIServer {
 }
 
 func (s *APIServer) Run() {
-	log.Printf("Running server on port: %s", s.listenAddr)
-	routes.HandleRequest()
-	log.Fatal(http.ListenAndServe(s.listenAddr, nil))
+	log.Println("Connecting to database...")
+	database.ConnectDB()
+
+	log.Printf("Running server on port %s", s.listenAddr)
+	routes.HandleRequest(s.listenAddr)
 }

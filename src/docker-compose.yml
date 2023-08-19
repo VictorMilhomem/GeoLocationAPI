@@ -9,7 +9,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - ./migration/store-migration-docker.sql:/docker-entrypoint-initdb.d/store-migration-docker.sql   
+      - ./migrations/store-migration-docker.sql:/docker-entrypoint-initdb.d/store-migration-docker.sql   
 
   pgadmin-compose:
     image: dpage/pgadmin4

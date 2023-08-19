@@ -10,6 +10,7 @@ import (
 )
 
 func GetStore(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-type", "application/json")
 	vars := mux.Vars(r)
 
 	id := vars["id"]

@@ -1,5 +1,9 @@
 package models
 
+import (
+	gormjsonb "github.com/dariubs/gorm-jsonb"
+)
+
 type Point struct {
 	Type  string    `json:"type"`
 	Coord []float64 `json:"coordinates"`
@@ -11,35 +15,21 @@ type MultiPolygon struct {
 }
 
 type Store struct {
-	Id           int          `json:"id"`
-	TradingName  string       `json:"tradingName"`
-	OwnerName    string       `json:"ownerName"`
-	Document     string       `json:"document"`
-	CoverageArea MultiPolygon `json:"coverageArea"`
-	Addrs        Point        `json:"addrs"`
+	Id           int             `json:"id"`
+	Tradingname  string          `json:"tradingname"`
+	Ownername    string          `json:"ownername"`
+	Document     string          `json:"document"`
+	Coveragearea gormjsonb.JSONB `json:"coveragearea"`
+	Addrs        gormjsonb.JSONB `json:"addrs"`
 }
 
-func NewPoint(coords []float64) *Point {
-	return &Point{
-		Type:  "Point",
-		Coord: coords,
-	}
-}
-
-func NewMultiPolygon(coords [][][][2]float64) *MultiPolygon {
-	return &MultiPolygon{
-		Type:   "MultiPolygon",
-		Coords: coords,
-	}
-}
-
-func NewStore(id int, tradingName string, ownerName string, document string, coverageArea MultiPolygon, addrs Point) *Store {
+func NewStore(id int, tradingName string, ownerName string, document string, coverageArea gormjsonb.JSONB, addrs gormjsonb.JSONB) *Store {
 	return &Store{
 		Id:           id,
-		TradingName:  tradingName,
-		OwnerName:    ownerName,
+		Tradingname:  tradingName,
+		Ownername:    ownerName,
 		Document:     document,
-		CoverageArea: coverageArea,
+		Coveragearea: coverageArea,
 		Addrs:        addrs,
 	}
 }

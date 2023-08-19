@@ -1,3 +1,5 @@
+github.com/dariubs/gorm-jsonb v0.1.5 h1:0sc6pBQ0V1i3MqIos3SiQjRxtzs3pTnAZaAtb+SFM20=
+github.com/dariubs/gorm-jsonb v0.1.5/go.mod h1:e6GXwMviS3e9QxADNOWWZq0WBTdxpK2SoYOExMUfRoM=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/felixge/httpsnoop v1.0.1 h1:lvB5Jl89CsZtGIWuTcDM1E/vkVs49/Ml7JJe07l8SPQ=
 github.com/felixge/httpsnoop v1.0.1/go.mod h1:m8KPJKqk1gH5J9DgRY2ASl2lWCfGKXixSwevea8zH2U=
