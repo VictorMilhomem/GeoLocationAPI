@@ -35,7 +35,7 @@ func ConvertJSONToPoints(jsonData gormjsonb.JSONB) (*Point, error) {
 	return points, nil
 }
 
-func (p *Point) EuclideanDistance(p1, p2 Point) float64 {
+func euclideanDistance(p1, p2 Point) float64 {
 	if len(p1.Coord) != len(p2.Coord) {
 		panic("Points have different dimensions")
 	}
@@ -47,4 +47,23 @@ func (p *Point) EuclideanDistance(p1, p2 Point) float64 {
 	}
 
 	return math.Sqrt(sumOfSquares)
+}
+
+func FindClosestPoint(p1 Point, p2List []Point) Point {
+	if len(p2List) == 0 {
+		panic("Empty list of points")
+	}
+
+	closestPoint := p2List[0]
+	closestDistance := euclideanDistance(p1, p2List[0])
+
+	for i := 1; i < len(p2List); i++ {
+		distance := euclideanDistance(p1, p2List[i])
+		if distance < closestDistance {
+			closestDistance = distance
+			closestPoint = p2List[i]
+		}
+	}
+
+	return closestPoint
 }

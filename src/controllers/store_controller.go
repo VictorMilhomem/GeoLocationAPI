@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"encoding/json"
+	"log"
 	"net/http"
 
 	"github.com/VictorMilhomem/GeoLocationApi/src/database"
@@ -32,15 +33,37 @@ func GetAllStores(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(store)
 }
 
+func getStoresLocation() ([]models.Point, error) {
+	var stores []models.Store
+	var points []models.Point
+
+	database.DB.Find(&stores)
+	for _, store := range stores {
+		point, err := models.ConvertJSONToPoints(store.Addrs)
+		if err != nil {
+			return nil, err
+		}
+		points = append(points, *point)
+	}
+	return points, nil
+}
+
 func GetUserClosestStore(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-type", "application/json")
 
 	var user models.Point
-	var store models.Store
+	// var store models.Store
 
 	json.NewDecoder(r.Body).Decode(&user)
 	// calculate the closest store
-	json.NewEncoder(w).Encode(store)
+	store_locations, err := getStoresLocation()
+	if err != nil {
+		log.Println(err)
+	}
+
+	closestpoint := models.FindClosestPoint(user, store_locations)
+	// find the store with the point
+	json.NewEncoder(w).Encode(closestpoint)
 }
 
 func CreateStore(w http.ResponseWriter, r *http.Request) {

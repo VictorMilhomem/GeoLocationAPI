@@ -16,5 +16,6 @@ func HandleRequest(listenAddr string) {
 	router.HandleFunc("/api/v1/store/{id}", controllers.DeleteStore).Methods("DELETE")
 	router.HandleFunc("/api/v1/store/{id}", controllers.UpdateStore).Methods("PUT")
 	router.HandleFunc("/api/v1/store/{id}", controllers.GetStore).Methods("GET")
+	router.HandleFunc("/api/v1/user", controllers.GetUserClosestStore).Methods("POST")
 	log.Fatal(http.ListenAndServe(listenAddr, router))
 }
